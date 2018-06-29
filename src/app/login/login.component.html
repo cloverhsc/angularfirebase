@@ -1,0 +1,63 @@
+<div *ngIf="afAuth.user | async as user; else showLogin">
+  <h1>Hello {{ user.email }}!</h1>
+  <button (click)="logout()">Logout</button>
+</div>
+
+<ng-template #showLogin>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+      <mat-form-field>
+        <input matInput type="email" formControlName="email" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+          placeholder="email">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput type="password" formControlName="password" placeholder="password">
+      </mat-form-field>
+    </div>
+    <button mat-raised-button type="submit">
+      Login
+    </button>
+    <button mat-raised-button routerLink="/resetpassword" type="button">
+      Forget Password
+    </button>
+    <button mat-raised-button routerLink="/register" type="button">
+      Register
+    </button>
+    <p>Form: {{loginForm.value | json}}</p>
+    <p>Form: {{loginForm.status}}</p>
+  </form>
+
+  <form [formGroup]="phoneForm" (ngSubmit)="PhoneLogin()">
+    <div>
+      <mat-form-field>
+        <input matInput type="text" formControlName="number"
+          placeholder="phone number">
+      </mat-form-field>
+    </div>
+    <div id="recaptcha-container"></div>
+    <button mat-raised-button type="submit" (click)="PhoneLogin()">
+      Login
+    </button>
+  </form>
+
+  <p>Google login.</p>
+  <button mat-raised-button (click)="Glogin()" color="primary">
+    Login with Google
+  </button>
+
+  <p>Facebook login.</p>
+  <button mat-raised-button (click)="Flogin()" color="primary">
+    Login with Facebook
+  </button>
+
+  <p>Facebook login.</p>
+  <button mat-raised-button (click)="Tlogin()" color="primary">
+    Login with Twitter
+  </button>
+</ng-template>
+
+<p>items$: {{ items$ | async | json}}</p>
+<p>tiem$/1: {{ item$ | async }}</p>
